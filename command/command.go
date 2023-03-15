@@ -34,7 +34,7 @@ func ConfigDeal() {
 		return
 	}
 	//保存到文件中
-	err = os.WriteFile("mnemonic", sealedMnemonicBytes, 0644)
+	err = os.WriteFile("/data/.mnemonic", sealedMnemonicBytes, 0644)
 	if err != nil {
 		fmt.Println("failed to write secret to file")
 		return
@@ -90,7 +90,7 @@ func ShowSigner() {
 
 func loadPrivkey() (privkey crypto.PrivKey, codedPubkey string, err error) {
 	//从文件中读取mnemonic
-	sealedMnemonicBytes, err := os.ReadFile("mnemonic")
+	sealedMnemonicBytes, err := os.ReadFile("/data/.mnemonic")
 	if err != nil {
 		return
 	}
