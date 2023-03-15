@@ -42,5 +42,5 @@ jobs:
         with:
          tag_name: ${{ steps.version.outputs.version }}
          files: |
-            ./bin
+            ./bin/dcevauth
      
