@@ -36,7 +36,7 @@ func ConfigDeal() {
 	//保存到文件中
 	err = os.WriteFile("/opt/dcnetio/data/.mnemonic", sealedMnemonicBytes, 0644)
 	if err != nil {
-		fmt.Println("failed to write secret to file")
+		fmt.Println("failed to write secret to file,try with sudo or root")
 		return
 	}
 	_, codePubkey, err := loadPrivkey()
