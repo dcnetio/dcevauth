@@ -8,10 +8,10 @@
  "securityVersion": 1,
  "mounts": [
 	 {
-            "source": ".",
-            "target": "/data",
-            "type": "hostfs",
-            "readOnly": false
+        "source": "/opt/dcnetio/data",
+        "target": "/opt/dcnetio/data",
+        "type": "hostfs",
+        "readOnly": false
 	 }
  ],
  "env": null,
