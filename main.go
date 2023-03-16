@@ -1,12 +1,29 @@
 package main
 
 import (
+	_ "embed"
+	"encoding/json"
+	"fmt"
 	"os"
 
 	"github.com/dcnetio/dcevauth/command"
 )
 
+//go:embed  "version.json"
+var configVersion []byte
+var GetVersion = func() (verStr string) {
+	var version struct {
+		Version string `json:"version"`
+	}
+	if err := json.Unmarshal(configVersion, &version); err != nil {
+		fmt.Println("unmarshal version.json error:", err)
+	}
+	verStr = version.Version
+	return
+}()
+
 func main() {
+	fmt.Println("dcevauth version:", GetVersion)
 	//读取命令行参数，并解析响应
 	if len(os.Args) == 1 { //显示帮助
 		command.ShowHelp()
