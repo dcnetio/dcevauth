@@ -17,7 +17,7 @@ func ShowHelp() {
 	fmt.Println("Options:")
 	fmt.Println("")
 	fmt.Println(" --config string                      config mnemonic for signer")
-	fmt.Println(" --sign string                        create signature for hex encoded \"encalveid\" ")
+	fmt.Println(" --sign string                        create signature for  \"encalveid\" ")
 	fmt.Println(" --signer                             show signer publickey coded with mbase")
 }
 
