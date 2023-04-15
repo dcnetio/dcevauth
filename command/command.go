@@ -18,7 +18,7 @@ func ShowHelp() {
 	fmt.Println("")
 	fmt.Println(" --config string                      config mnemonic for signer")
 	fmt.Println(" --sign string                        create signature for hex encoded \"encalveid\" ")
-	fmt.Println(" --signer                             show signer public key")
+	fmt.Println(" --signer                             show signer publickey coded with mbase")
 }
 
 func ConfigDeal() {
@@ -109,7 +109,7 @@ func loadPrivkey() (privkey crypto.PrivKey, codedPubkey string, err error) {
 	if err != nil {
 		return
 	}
-	codedPubkey = codec.HexEncodeToString(pub)
+	codedPubkey, _ = mbase.Encode(mbase.Base32, pub)
 	return
 }
 
