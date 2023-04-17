@@ -4,6 +4,7 @@ import (
 	"crypto/ed25519"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/ChainSafe/go-schnorrkel"
 	"github.com/dcnetio/go-substrate-rpc-client/types/codec"
@@ -16,9 +17,11 @@ func ShowHelp() {
 	fmt.Println("usage: dcevauth  [OPTIONS] [args]")
 	fmt.Println("Options:")
 	fmt.Println("")
-	fmt.Println(" --config string                      config mnemonic for signer")
-	fmt.Println(" --sign string                        create signature for  \"encalveid\" ")
-	fmt.Println(" --signer                             show signer publickey coded with mbase")
+	fmt.Println(" --config string              config mnemonic for signer")
+	fmt.Println(" --sign string                create signature for input string,When the input")
+	fmt.Println("                              string starts with '0x', it will be decoded in")
+	fmt.Println("                              hexadecimal before signing")
+	fmt.Println(" --signer                     show signer publickey coded with mbase")
 }
 
 func ConfigDeal() {
@@ -52,17 +55,24 @@ func SignDeal() {
 		ShowHelp()
 		return
 	}
-	enclaveId, err := codec.HexDecodeString(os.Args[2])
-	if err != nil {
-		fmt.Println("invalid enclaveid, error:", err)
-		return
+	var needSign []byte
+	var err error
+	if strings.HasPrefix(os.Args[2], "0x") || strings.HasPrefix(os.Args[2], "0X") {
+		needSign, err = codec.HexDecodeString(os.Args[2])
+		if err != nil {
+			fmt.Println("invalid input, error:", err)
+			return
+		}
+	} else {
+		needSign = []byte(os.Args[2])
 	}
+
 	privKey, codedPubkey, err := loadPrivkey()
 	if err != nil {
 		fmt.Println("load private key failed,please confirm mnemonic configed, error:", err)
 		return
 	}
-	signature, err := privKey.Sign(enclaveId)
+	signature, err := privKey.Sign(needSign)
 	if err != nil {
 		fmt.Println("sign enclaveid failed, error:", err)
 		return
@@ -73,7 +83,7 @@ func SignDeal() {
 		return
 	}
 	//打印签名结果
-	fmt.Println("enclaveid:", os.Args[2])
+	fmt.Println("input:", os.Args[2])
 	fmt.Println("public key:", codedPubkey)
 	fmt.Println("signature:", encodedSignature)
 }
