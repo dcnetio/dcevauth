@@ -1,6 +1,6 @@
 module github.com/dcnetio/dcevauth
 
-go 1.19
+go 1.20
 
 require (
 	github.com/ChainSafe/go-schnorrkel v1.0.0
