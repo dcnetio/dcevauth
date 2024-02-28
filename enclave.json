@@ -1,0 +1,19 @@
+{
+ "exe": "dcevauth",
+ "key": "private.pem",
+ "debug": false,
+ "heapSize": 512,
+ "executableHeap": false,
+ "productID": 5,
+ "securityVersion": 1,
+ "mounts": [
+	 {
+        "source": "/opt/dcnetio/data",
+        "target": "/opt/dcnetio/data",
+        "type": "hostfs",
+        "readOnly": false
+	 }
+ ],
+ "env": null,
+ "files": null
+}
